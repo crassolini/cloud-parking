@@ -1,6 +1,7 @@
 package com.teste.parking.service;
 
 import com.teste.parking.model.Parking;
+import com.teste.parking.service.exceptions.ParkingNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -19,9 +20,9 @@ public class ParkingService {
         var id = getUUID();
         Parking parking = new Parking(id, "ABC-1234", "SP", "Prisma", "Cinza");
         parkingMap.put(id, parking);
-        var id1 = getUUID();
-        Parking parking1 = new Parking(id1, "DEF-9876", "BA", "VW GOL", "Azul");
-        parkingMap.put(id1, parking1);
+//        var id1 = getUUID();
+//        Parking parking1 = new Parking(id1, "DEF-9876", "BA", "VW GOL", "Azul");
+//        parkingMap.put(id1, parking1);
     }
 
     public List<Parking> findAll() {
@@ -33,7 +34,11 @@ public class ParkingService {
     }
 
     public Parking findById(String id) {
-        return parkingMap.get(id);
+        Parking parking = parkingMap.get(id);
+        if (parking == null) {
+            throw new ParkingNotFoundException(id);
+        }
+        return parking;
     }
 
     public Parking create(Parking parkingCreate) {
@@ -42,5 +47,17 @@ public class ParkingService {
         parkingCreate.setEntryDate(LocalDateTime.now());
         parkingMap.put(uuid, parkingCreate);
         return parkingCreate;
+    }
+
+    public void delete(String id) {
+        findById(id);
+        parkingMap.remove(id);
+    }
+
+    public Parking update(String id, Parking parkingCreate) {
+        Parking parking = findById(id);
+        parking.setColor(parkingCreate.getColor());
+        parkingMap.replace(id, parking);
+        return parking;
     }
 }
