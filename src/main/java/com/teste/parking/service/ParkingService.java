@@ -4,6 +4,8 @@ import com.teste.parking.model.Parking;
 import com.teste.parking.repository.ParkingRepository;
 import com.teste.parking.service.exceptions.ParkingNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -32,11 +34,13 @@ public class ParkingService {
 ////        parkingMap.put(id1, parking1);
 //    }
 
+    @Transactional(readOnly = true)
     public List<Parking> findAll() {
         //return parkingMap.values().stream().collect(Collectors.toList());
         return parkingRepository.findAll();
     }
 
+    @Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
     public Parking findById(String id) {
 //        Parking parking = parkingMap.get(id);
 //        if (parking == null) {
@@ -47,6 +51,7 @@ public class ParkingService {
                 () -> new ParkingNotFoundException(id));
     }
 
+    @Transactional
     public Parking create(Parking parkingCreate) {
 //        String uuid = getUUID();
 //        parkingCreate.setId(uuid);
@@ -60,6 +65,7 @@ public class ParkingService {
         return parkingCreate;
     }
 
+    @Transactional
     public void delete(String id) {
 //        findById(id);
 //        parkingMap.remove(id);
@@ -67,6 +73,7 @@ public class ParkingService {
         parkingRepository.deleteById(id);
     }
 
+    @Transactional
     public Parking update(String id, Parking parkingCreate) {
 //        Parking parking = findById(id);
 //        parking.setColor(parkingCreate.getColor());
@@ -81,6 +88,7 @@ public class ParkingService {
         return parking;
     }
 
+    @Transactional
     public Parking checkOut(String id) {
         Parking parking = findById(id);
         parking.setExitDate(LocalDateTime.now());

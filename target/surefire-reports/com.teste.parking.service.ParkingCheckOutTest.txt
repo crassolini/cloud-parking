@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.teste.parking.service.ParkingCheckOutTest
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.015 s - in com.teste.parking.service.ParkingCheckOutTest

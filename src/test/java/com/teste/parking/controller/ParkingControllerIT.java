@@ -14,7 +14,7 @@ import org.springframework.http.MediaType;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class ParkingControllerIT {
+class ParkingControllerIT extends AbstractContainerBase {
 
     @LocalServerPort
     private int randomPort;
@@ -30,9 +30,9 @@ class ParkingControllerIT {
                 .when()
                 .get("/parking")
                 .then()
-                .body("license[0]", Matchers.equalTo("ABC-1234"));
+                //.body("license[0]", Matchers.equalTo("ABC-1234"));
                 //.extract().response().body().prettyPrint();
-                //.statusCode(200)
+                .statusCode(HttpStatus.OK.value());
                 //.body()
 
     }
