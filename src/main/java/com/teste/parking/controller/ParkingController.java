@@ -5,7 +5,6 @@ import com.teste.parking.controller.dto.ParkingDTO;
 import com.teste.parking.controller.mapper.ParkingMapper;
 import com.teste.parking.model.Parking;
 import com.teste.parking.service.ParkingService;
-import io.swagger.v3.oas.annotations.OpenAPI30;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +15,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/parking")
-
 public class ParkingController {
 
     private final ParkingService parkingService;

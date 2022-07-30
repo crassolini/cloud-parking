@@ -27,6 +27,8 @@ class ParkingControllerIT extends AbstractContainerBase {
     @Test
     void whenFindAllThenCheckResult() {
         RestAssured.given()
+                .auth()
+                .basic("usuario", "usuario.Abc")
                 .when()
                 .get("/parking")
                 .then()
@@ -47,6 +49,8 @@ class ParkingControllerIT extends AbstractContainerBase {
         parkingCreateDTO.setState("CE");
 
         RestAssured.given()
+                .auth()
+                .basic("usuario","usuario.Abc")
                 .when()
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .body(parkingCreateDTO)
